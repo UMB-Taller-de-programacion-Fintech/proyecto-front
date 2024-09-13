@@ -12,11 +12,6 @@ import StaffLayout from './layouts/staff/staff.layout'
 import { NotFoundPage, LoginPage, HomePage } from './pages'
 import PrivateRoute from './components/auth/auth';
 import PrivateLoginRoute from './components/auth/login';
-import ClientMyReservationPage from 'pages/client/clientMyReservation/clientMyReservation.page'
-import ManageUsersPage from 'pages/admin/manageUsers/manageUsers.page'
-import ManageReservationsPage from 'pages/admin/manageReservations/manageReservations.page'
-import ManageTreatmentsPage from 'pages/admin/manageTreatments/manageTreatments.page'
-import ManageClientsPage from 'pages/admin/manageClients/manageClients.page'
 
 const RootComponent: React.FC = () => {
     return (

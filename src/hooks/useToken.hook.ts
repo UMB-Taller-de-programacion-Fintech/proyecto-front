@@ -5,13 +5,7 @@ import { useAppSelector,useAppDispatch } from "store";
 import tokenAction from 'store/auth/token/token.action';
 import userAction from 'store/auth/user/user.action';
 import { ROUTES } from 'resources/routes-constants';
-import rolAction from 'store/app/rol/rol.action';
 import permissionAction from 'store/auth/permissions/permission.action';
-import reservationAction from 'store/app/reservation/reservation.action';
-import allUsersAction from 'store/app/allUsers/allUsers.action';
-import headquarterAction from 'store/app/headquarter/headquarter.action';
-import treatmentAction from 'store/app/treatment/treatment.action';
-import clientAction from 'store/app/client/client.action';
 
 function useToken() {
   const token = useAppSelector(state => state?.user?.token?.token);
@@ -21,13 +15,7 @@ function useToken() {
   const logout = () => {
     dispatch(tokenAction.drop());
     dispatch(userAction.delete_all());
-    dispatch(rolAction.delete_all());
     dispatch(permissionAction.delete_all());
-    dispatch(allUsersAction.delete_all());
-    dispatch(reservationAction.delete_all());
-    dispatch(headquarterAction.delete_all());
-    dispatch(treatmentAction.delete_all());
-    dispatch(clientAction.delete_all());
     navigate(ROUTES.LOGIN);
   }
 
