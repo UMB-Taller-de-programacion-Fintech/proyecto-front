@@ -8,6 +8,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage
 import tokenReducer from './auth/token/token.reducer'
 import userReducer from './auth/user/user.reducer'
 import permissionReducer from './auth/permissions/permission.reducer'
+import allUsersReducer from './app/allUsers/allUsers.reducer';
 
 
 const userReducerCombined = combineReducers({
@@ -18,6 +19,7 @@ const userReducerCombined = combineReducers({
 
 const rootReducer = combineReducers({
     user: userReducerCombined,
+    all_users: allUsersReducer,
 })
 
 const persistedReducer = persistReducer(

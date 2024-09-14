@@ -19,7 +19,9 @@ export default class UserService {
 
   async create(data: Partial<any>): Promise<any> {
     try {
-      const response = await CustomAxios({ method: 'POST', url: this.path, data, headers: { 'Authorization': `Bearer ${this.token}` } })
+      const response = await CustomAxios({ method: 'POST', url: this.path + '/create', data, 
+        //headers: { 'Authorization': `Bearer ${this.token}` } 
+        })
       if (!response?.data?._id) throw response
 
       return response?.data;
@@ -51,7 +53,9 @@ export default class UserService {
 
   async getAll(): Promise<any> {
     try {
-      const response = await CustomAxios({ method: 'GET', url: this.path, headers: { 'Authorization': `Bearer ${this.token}` } })
+      const response = await CustomAxios({ method: 'GET', url: this.path, 
+        //headers: { 'Authorization': `Bearer ${this.token}` }
+        })
       if (!response?.data) throw response
 
       return response?.data;

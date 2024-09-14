@@ -31,6 +31,8 @@ function SidebarComponent() {
     <div className={styles.sidebar}>
       <Fade>
         <RedirectComponent page_route={ROUTES.HOMEPAGE_ROUTE} currentPath={location}> <IoHomeOutline /> <p>Menu</p>  </RedirectComponent>
+        <RedirectComponent page_route={ROUTES.MANAGE_USERS} currentPath={location}> <PiUserCircle /> <p>Usuarios</p>  </RedirectComponent>
+
         <div className={styles.logout}>
           <RedirectComponent callback={logout} currentPath={location}> <TbLogout /> <p>Salir</p> </RedirectComponent>
         </div>

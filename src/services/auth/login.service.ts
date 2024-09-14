@@ -7,7 +7,7 @@ import CustomAxios from "utility/customAxios";
 class LoginService {
   async login(email: string, password: string): Promise<any> {
     try {
-      const response = await CustomAxios( {method: 'POST', url: configService.host +"/auth/login", data: { email, password }})
+      const response = await CustomAxios( {method: 'POST', url: configService.host +"/users/login", data: { email, password }})
       return response?.data;
     } catch (error: any) {
       return error?.response?.data
@@ -29,9 +29,19 @@ class LoginService {
     return
   }
 
-  async register(name: string, email: string, cell_phone: string, password: string): Promise<any> {
+  async register(_params: any): Promise<any> {
     try {
-      const response = await CustomAxios( {method: 'POST', url: configService.host +"/auth/signup", data: { name, email, cell_phone, password }})
+      const response = await CustomAxios( {method: 'POST', url: configService.host +"/users/create", data: _params})
+      return response?.data;
+    } catch (error: any) {
+      return error?.response?.data
+    }
+  }
+
+  async getUsers(_params: any): Promise<any> {
+    try {
+      const response = await CustomAxios( {method: 'GET', url: configService.host +"/users", data: _params})
+      console.log(response?.data);
       return response?.data;
     } catch (error: any) {
       return error?.response?.data

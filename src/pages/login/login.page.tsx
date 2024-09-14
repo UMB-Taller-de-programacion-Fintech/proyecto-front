@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from 'firebasea/firebase_credentials';
 
@@ -23,10 +23,31 @@ import InputComponent from '../../components/inputForm/input.component';
 
 
 const LoginPage: React.FC = () => {
+
+	const [users, setUsers] = useState<any>([]);
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		const getUsers = async () => {
+			setLoading(true);
+			const response = await loginService.getUsers(1);
+			setUsers(response);
+			setLoading(false);
+		}
+		getUsers();
+	}, [])
+
 	const [isLogin, setIsLogin] = useState(true);
 
 	return (
 		<div className={styles.main}>
+
+			<ul>
+				{users.map((user: any, index: number) => (
+					<li key={index}>{user.firstName} {user.lastName} {user.email}</li>
+				))}
+			</ul>
+
 			<Fade cascade duration={500} className='d-flex justify-content-center align-items-center' direction='up'>
 				{isLogin ? <LoginComponent goToRegister={() => setIsLogin(false)} /> : <RegisterComponent goToLogin={() => setIsLogin(true)} />}
 			</Fade>
@@ -60,9 +81,9 @@ const useHookLogin = () => {
 		}
 	}
 
-  return {
-    postLogin
-  }
+	return {
+		postLogin
+	}
 }
 
 
@@ -101,7 +122,7 @@ const LoginComponent: React.FC<{ goToRegister: () => void }> = (props: { goToReg
 			const resposne = await loginService.login(email, password);
 			postLogin(resposne)
 			setLoading(false);
-	
+
 			setValidated(true);
 		}
 	};
@@ -114,7 +135,7 @@ const LoginComponent: React.FC<{ goToRegister: () => void }> = (props: { goToReg
 		<Form className="d-flex justify-content-center flex-wrap gap-3" onSubmit={handleSubmit} validated={validated}>
 
 			<InputComponent required label="Correo" set={setEmail} value={email} type="email" />
-			<InputComponent required label="Contraseña" set={setPassword} value={password} type="password" minLength={4} />
+			<InputComponent required label="Contraseña" set={setPassword} value={password} type="password" minLength={3} />
 
 			<Button variant="primary" type="submit" className={styles.button}>Iniciar sesión</Button>
 		</Form>
@@ -130,9 +151,9 @@ const RegisterComponent: React.FC<{ goToLogin: () => void }> = (props: { goToLog
 	const [loading, setLoading] = useState(false);
 
 	//Formulario
-	const [name, setName] = useState('');
+	const [firstName, setFirstname] = useState('');
 	const [email, setEmail] = useState('');
-	const [cellPhone, setCellPhone] = useState('');
+	const [lastName, setLastName] = useState('');
 	const [password, setPassword] = useState('');
 
 
@@ -144,7 +165,7 @@ const RegisterComponent: React.FC<{ goToLogin: () => void }> = (props: { goToLog
 		const form = event.currentTarget;
 		if (form.checkValidity()) {
 			setLoading(true);
-			const resposne = await loginService.register(name, email, cellPhone, password);
+			const resposne = await loginService.register({ firstName, email, lastName, password });
 			postLogin(resposne)
 
 			setLoading(false);
@@ -160,8 +181,8 @@ const RegisterComponent: React.FC<{ goToLogin: () => void }> = (props: { goToLog
 
 		<Form className="d-flex justify-content-center flex-wrap gap-3" onSubmit={handleSubmit} validated={validated}>
 
-			<InputComponent required label="Nombre" set={setName} value={name} type="string" />
-			<InputComponent required label="Celular" set={setCellPhone} value={cellPhone} type="string" />
+			<InputComponent required label="Nombre" set={setFirstname} value={firstName} type="string" />
+			<InputComponent required label="Apellido" set={setLastName} value={lastName} type="string" />
 			<InputComponent required label="Correo" set={setEmail} value={email} type="email" />
 			<InputComponent required label="Contraseña" set={setPassword} value={password} type="password" minLength={4} />
 

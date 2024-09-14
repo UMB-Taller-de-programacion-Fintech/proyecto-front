@@ -12,6 +12,7 @@ import StaffLayout from './layouts/staff/staff.layout'
 import { NotFoundPage, LoginPage, HomePage } from './pages'
 import PrivateRoute from './components/auth/auth';
 import PrivateLoginRoute from './components/auth/login';
+import ManageUsersPage from 'pages/admin/manageUsers/manageUsers.page'
 
 const RootComponent: React.FC = () => {
     return (
@@ -20,16 +21,17 @@ const RootComponent: React.FC = () => {
                 <Route path="/" element={<Navigate to={ROUTES.PRINCIPAL_PAGE_ROUTE} replace />} />
 
                 {/* Rutas protegidas */}
-                <Route element={<PrivateRoute />}>
+                {/* <Route element={<PrivateRoute />}> */}
                     <Route path="*" element={<StaffLayout><NotFoundPage /></StaffLayout>} />
                     <Route path={ROUTES.HOMEPAGE_ROUTE} element={<StaffLayout><HomePage /></StaffLayout>} />
-                </Route>
+                    <Route path={ROUTES.MANAGE_USERS} element={<StaffLayout><ManageUsersPage /></StaffLayout>} />
+                {/* </Route> */}
 
                 {/* Ruta de inicio de sesión */}
-                <Route element={<PrivateLoginRoute />}>
-                    <Route path={ROUTES.LOGIN} element={<AnonymousLayout><LoginPage /></AnonymousLayout>} />
-                    <Route path="*" element={<AnonymousLayout><NotFoundPage /></AnonymousLayout>} />
-                </Route>
+                {/* <Route element={<PrivateLoginRoute />}> */}
+                    <Route path={ROUTES.LOGIN} element={<StaffLayout><LoginPage /></StaffLayout>} />
+                    <Route path="*" element={<StaffLayout><NotFoundPage /></StaffLayout>} />
+                {/* </Route> */}
 
             </Routes>
         </Router>
