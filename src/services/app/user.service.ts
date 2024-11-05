@@ -22,10 +22,11 @@ export default class UserService {
       const response = await CustomAxios({ method: 'POST', url: this.path + '/create', data, 
         //headers: { 'Authorization': `Bearer ${this.token}` } 
         })
-      if (!response?.data?._id) throw response
+      if (!response?.data?.id) throw response
 
       return response?.data;
     } catch (error) {
+      console.log('error', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',

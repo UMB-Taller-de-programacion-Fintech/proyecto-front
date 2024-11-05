@@ -37,7 +37,7 @@ function UserCreateComponent(props: {userData?: Partial<Interface>, setShow: (sh
     } else {
       const new_user = {...userData, status: true}
       const response = await userService.create(new_user);
-      if (response?._id) {
+      if (response?.id) {
         dispatch(allUsersAction.add(response));
       }
     }

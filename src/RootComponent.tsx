@@ -29,8 +29,8 @@ const RootComponent: React.FC = () => {
 
                 {/* Ruta de inicio de sesión */}
                 {/* <Route element={<PrivateLoginRoute />}> */}
-                    <Route path={ROUTES.LOGIN} element={<StaffLayout><LoginPage /></StaffLayout>} />
-                    <Route path="*" element={<StaffLayout><NotFoundPage /></StaffLayout>} />
+                    <Route path={ROUTES.LOGIN} element={<AnonymousLayout><LoginPage /></AnonymousLayout>} />
+                    <Route path="*" element={<AnonymousLayout><NotFoundPage /></AnonymousLayout>} />
                 {/* </Route> */}
 
             </Routes>

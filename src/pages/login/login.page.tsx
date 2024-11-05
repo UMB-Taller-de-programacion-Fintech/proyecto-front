@@ -43,7 +43,7 @@ const LoginPage: React.FC = () => {
 		<div className={styles.main}>
 
 			<ul>
-				{users.map((user: any, index: number) => (
+				{users?.map((user: any, index: number) => (
 					<li key={index}>{user.firstName} {user.lastName} {user.email}</li>
 				))}
 			</ul>
